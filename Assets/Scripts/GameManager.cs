@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -28,32 +28,32 @@ public class GameManager : MonoBehaviour
             instance = this;
         else if(instance !=this)
             Destroy(gameObject);
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
         enemies = new List<Enemy>();
         boardManager = GetComponent<BoardManager>();
         InitGame();
     }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    static public void CallbackInitialization()
-    {
-        //register the callback to be called everytime the scene is loaded
-        DontDestroyOnLoad(instance);
-        SceneManager.sceneLoaded += OnSceneLoaded;        
-    }
-
-    //This is called each time a scene is loaded.
-    static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        instance.level++;
-        instance.InitGame();
-    }
-
-    //void OnLevelWasLoaded(int index)
+    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    //static public void CallbackInitialization()
     //{
-    //    level++;
-    //    InitGame();
+    //    //register the callback to be called everytime the scene is loaded
+    //    DontDestroyOnLoad(instance);
+    //    SceneManager.sceneLoaded += OnSceneLoaded;        
     //}
+
+    ////This is called each time a scene is loaded.
+    //static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    //{
+    //    instance.level++;
+    //    instance.InitGame();
+    //}
+
+    void OnLevelWasLoaded(int index)
+    {
+        level++;
+        InitGame();
+    }
 
     void InitGame()
     {
